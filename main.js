@@ -40,7 +40,7 @@ app.post('/send-message', async (req, res) => {
         const messageOut = await client.sendMessage(chatId, content, options);
         console.log(messageOut);
     } else if (contentType === 'MessageMediaGif') {
-        const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-api/sheep.mp4");
+        const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-studios/sheep.mp4");
         const messageOut = await client.sendMessage(chatId, messageMediaFromFilePath, {"sendVideoAsGif": true});
         console.log(messageOut);
     } else if (contentType === "MessageMediaFromURL") {
