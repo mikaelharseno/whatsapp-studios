@@ -1,2 +1,5 @@
-2024/04/14-11:39:59.525 f62 Creating DB /home/ec2-user/whatsapp-studios/.wwebjs_auth/session/Default/Session Storage since it was missing.
-2024/04/14-11:39:59.541 f62 Delete type=3 #1
+2024/04/14-11:54:14.372 129b Recovering log #6
+2024/04/14-11:54:14.375 129b Level-0 table #8: started
+2024/04/14-11:54:14.377 129b Level-0 table #8: 321 bytes OK
+2024/04/14-11:54:14.381 129b Delete type=0 #6
+2024/04/14-11:54:14.381 129b Delete type=3 #4

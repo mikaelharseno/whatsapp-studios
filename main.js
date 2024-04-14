@@ -32,12 +32,13 @@ app.get('/', (req, res) => {
 })
 
 app.post('/send-message', async (req, res) => {
-    const chatId = req.chatId;
-    const contentType = req.contentType;
-    const content = req.content;
+    const chatId = req.body.chatId;
+    const contentType = req.body.contentType;
+    const content = req.body.content;
 
+    console.log(req);
     if (contentType === 'string') {
-        const messageOut = await client.sendMessage(chatId, content, options);
+        const messageOut = await client.sendMessage(chatId, content);
         console.log(messageOut);
     } else if (contentType === 'MessageMediaGif') {
         const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-studios/sheep.mp4");
@@ -45,7 +46,7 @@ app.post('/send-message', async (req, res) => {
         console.log(messageOut);
     } else if (contentType === "MessageMediaFromURL") {
         const messageMediaFromURL = await MessageMedia.fromUrl(content, { unsafeMime: true })
-        const messageOut = await client.sendMessage(chatId, messageMediaFromURL, options);
+        const messageOut = await client.sendMessage(chatId, messageMediaFromURL);
         console.log(messageOut);
     }
 

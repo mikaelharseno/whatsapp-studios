@@ -1,2 +1,5 @@
-2024/04/14-11:39:57.593 f62 Creating DB /home/ec2-user/whatsapp-studios/.wwebjs_auth/session/Default/shared_proto_db since it was missing.
-2024/04/14-11:39:57.602 f62 Delete type=3 #1
+2024/04/14-11:54:12.581 129b Recovering log #5
+2024/04/14-11:54:12.582 129b Level-0 table #7: started
+2024/04/14-11:54:12.582 129b Level-0 table #7: 0 bytes OK
+2024/04/14-11:54:12.588 129b Delete type=0 #5
+2024/04/14-11:54:12.588 129b Delete type=3 #4
