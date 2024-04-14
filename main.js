@@ -1,4 +1,4 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
+const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 const port = 3000;
@@ -31,35 +31,29 @@ app.get('/', (req, res) => {
     res.send('hello world');
 })
 
-app.post('/send-message', (req, res) => {
-    console.log(req.body)
-    res.send('hello world');
+app.post('/send-message', async (req, res) => {
+    const chatId = req.chatId;
+    const contentType = req.contentType;
+    const content = req.content;
+
+    if (contentType === 'string') {
+        const messageOut = await client.sendMessage(chatId, content, options);
+        console.log(messageOut);
+    } else if (contentType === 'MessageMediaGif') {
+        const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-api/sheep.mp4");
+        const messageOut = await client.sendMessage(chatId, messageMediaFromFilePath, {"sendVideoAsGif": true});
+        console.log(messageOut);
+    } else if (contentType === "MessageMediaFromURL") {
+        const messageMediaFromURL = await MessageMedia.fromUrl(content, { unsafeMime: true })
+        const messageOut = await client.sendMessage(chatId, messageMediaFromURL, options);
+        console.log(messageOut);
+    }
+
+    res.send({
+        'success': false
+    });
 })
   
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
-
-// async function sendNewMessageWithTimeout(customerNumber, message, timeout = 3000) {
-//   var paramsMain = { 
-//     "chatId": customerNumber + "@c.us",
-//     "contentType": "string",
-//     "content": message
-//   };
-// }
-
-// async function sendSheepGif(customerNumber) {
-//   var paramsMain = { 
-//     "chatId": customerNumber + "@c.us",
-//     "contentType": "MessageMediaGif",
-//     "content": "Send GIF"
-//   };
-// }
-
-// async function sendImage(customerNumber, imageUrl, timeout = 3000) {
-//   var paramsMain = { 
-//     "chatId": customerNumber + "@c.us",
-//     "contentType": "MessageMediaFromURL",
-//     "content": imageUrl,
-//   };
-// }
