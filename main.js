@@ -36,18 +36,30 @@ app.post('/send-message', async (req, res) => {
     const contentType = req.body.contentType;
     const content = req.body.content;
 
-    console.log(req);
-    if (contentType === 'string') {
-        const messageOut = await client.sendMessage(chatId, content);
-        console.log(messageOut);
-    } else if (contentType === 'MessageMediaGif') {
-        const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-studios/sheep.mp4");
-        const messageOut = await client.sendMessage(chatId, messageMediaFromFilePath, {"sendVideoAsGif": true});
-        console.log(messageOut);
-    } else if (contentType === "MessageMediaFromURL") {
-        const messageMediaFromURL = await MessageMedia.fromUrl(content, { unsafeMime: true })
-        const messageOut = await client.sendMessage(chatId, messageMediaFromURL);
-        console.log(messageOut);
+    try {
+        if (contentType === 'string') {
+            const messageOut = await client.sendMessage(chatId, content);
+            res.send({
+                'success': true,
+            });
+            return;
+        } else if (contentType === 'MessageMediaGif') {
+            const messageMediaFromFilePath = await MessageMedia.fromFilePath("/home/ec2-user/whatsapp-studios/sheep.mp4");
+            const messageOut = await client.sendMessage(chatId, messageMediaFromFilePath, {"sendVideoAsGif": true});
+            res.send({
+                'success': true,
+            });
+            return;
+        } else if (contentType === "MessageMediaFromURL") {
+            const messageMediaFromURL = await MessageMedia.fromUrl(content, { unsafeMime: true })
+            const messageOut = await client.sendMessage(chatId, messageMediaFromURL);
+            res.send({
+                'success': true,
+            });
+            return;
+        }
+    } catch (e) {
+        console.log(e);
     }
 
     res.send({
