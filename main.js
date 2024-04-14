@@ -38,7 +38,9 @@ app.post('/send-message', async (req, res) => {
 
     try {
         if (contentType === 'string') {
-            const messageOut = await client.sendMessage(chatId, content);
+            const messageOut = await client.sendMessage(chatId, content, {
+                linkPreview: false
+            });
             res.send({
                 'success': true,
             });
